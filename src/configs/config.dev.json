@@ -1,0 +1,17 @@
+{
+  "database": {
+      "host": "localhost",
+      "user": "root",
+      "password": "root",
+      "connectionLimit": 10,
+      "database": "church-school",
+      "debug": false
+  },
+  "server": {
+      "port": 5000,
+      "pageSize": 100,
+      "logger": {
+          "format": "tiny"
+      }
+  }
+}
