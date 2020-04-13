@@ -1,8 +1,9 @@
-import { getServerConfig } from "./src/configs/configs";
-import database from './src/loaders/database';
-import server from "./src/loaders/server";
+// import database from './src/loaders/database';
+// import server from "./src/loaders/server";
 // import Logger from 'logger';
 import express from 'express';
+
+import { getServerConfig } from './configs/configs';
 
 // referred architecture and configs Phttps://github.com/Talento90/organization-api
 
@@ -35,7 +36,7 @@ async function startServer() {
    * Well, at least in node 10 without babel and at the time of writing
    * So we are using good old require.
    **/
-  await require('./src/loaders').default({ expressApp: app });
+  await require('./loaders').default({ expressApp: app });
 
   const serverConfig = getServerConfig();
   app.listen(process.env.PORT || serverConfig.port, err => {

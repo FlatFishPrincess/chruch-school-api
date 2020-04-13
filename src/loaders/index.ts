@@ -1,13 +1,12 @@
 import expressLoader from './server';
 import { getDatabaseConfig } from '../configs/configs';
-import database from './database';
+import { initializeDatabase } from './database';
 
 export default async ({ expressApp }) => {
 
   const dbConfig = getDatabaseConfig();
-  const db = database.init(dbConfig);
+  initializeDatabase(dbConfig);
   console.info('✌️ DB loaded and connected!');
-
 
   // const userModel = {
   //   name: 'userModel',

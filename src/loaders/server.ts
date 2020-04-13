@@ -1,8 +1,9 @@
+import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
-import { getApiConfig } from '../configs/configs';
+// import { getApiConfig } from '../configs/configs';
 
-export default ({ app }) => {
+export default ({ app }: { app: express.Application }) => {
 
     // Enable Cross Origin Resource Sharing to all origins by default
     app.use(cors());
@@ -11,7 +12,7 @@ export default ({ app }) => {
     app.use(bodyParser.json());
 
       // Load API routes
-    app.use(getApiConfig().prefix, routes());
+    // app.use(getApiConfig().prefix, routes());
     /// catch 404 and forward to error handler
     app.use((req, res, next) => {
         const err = new Error('Not Found');
