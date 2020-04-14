@@ -1,23 +1,18 @@
 import dotenv from 'dotenv';
-import mysql from 'mysql2/promise';
+import { createConnection } from 'typeorm';
 
 dotenv.config();
-export const initializeDatabase = configs => {
-    return mysql.createPool({
+export const initializeDatabase = async (configs) => {
+    const connection = await createConnection({
+        type: "mysql",
         host: process.env.MYSQL_HOST || configs.host,
-        user: process.env.MYSQL_USER || configs.user,
+        username: process.env.MYSQL_USER || configs.user,
         password: process.env.MYSQL_PASSWORD || configs.password,
         database: process.env.MYSQL_CONNECTION_DATABASE || configs.database,
-        multipleStatements: process.env.MYSQL_MULTIPLE_STATEMENTS || configs.multipleStatements,
+        entities: [
+            __dirname + "/entity/*.ts"
+        ]
     });
+    return connection;
 }
-// module.exports.init = function (configs) {
-//     return mysql.createPool({
-//         host: process.env.MYSQL_HOST || configs.host,
-//         user: process.env.MYSQL_USER || configs.user,
-//         password: process.env.MYSQL_PASSWORD || configs.password,
-//         database: process.env.MYSQL_CONNECTION_DATABASE || configs.database,
-//         multipleStatements: process.env.MYSQL_MULTIPLE_STATEMENTS || configs.multipleStatements,
-//     });
-// };
 

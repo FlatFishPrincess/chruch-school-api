@@ -3,6 +3,7 @@
     "lib": ["es5", "es6", "dom"],
     "target": "es5",
     "module": "commonjs",
+    "types": ["reflect-metadata"],
     "moduleResolution": "node",
     "outDir": "build",
     "baseUrl": "src",

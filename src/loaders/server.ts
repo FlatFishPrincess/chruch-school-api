@@ -1,7 +1,10 @@
-import express from 'express';
-import cors from 'cors';
 import bodyParser from 'body-parser';
-// import { getApiConfig } from '../configs/configs';
+import cors from 'cors';
+import express from 'express';
+import { InversifyExpressServer } from 'inversify-express-utils';
+
+import { getApiConfig } from '../configs/configs';
+import routes from '../routes';
 
 export default ({ app }: { app: express.Application }) => {
 
@@ -10,9 +13,11 @@ export default ({ app }: { app: express.Application }) => {
 
     // Middleware goes here
     app.use(bodyParser.json());
+    // app.use(helmet());
 
-      // Load API routes
-    // app.use(getApiConfig().prefix, routes());
+    // Load API routes
+    // app.use(getApiConfig().prefix, routes);
+
     /// catch 404 and forward to error handler
     app.use((req, res, next) => {
         const err = new Error('Not Found');
