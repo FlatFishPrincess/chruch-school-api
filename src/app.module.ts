@@ -12,7 +12,7 @@ import { MinistryModule } from './ministry/ministry.module';
     TypeOrmModule.forRoot(),
     MinistryModule,
   ],
-  controllers: [AppController, CatsController],
-  providers: [AppService, CatsService],
+  controllers: [AppController],
+  providers: [AppService],
 })
 export class AppModule {}
