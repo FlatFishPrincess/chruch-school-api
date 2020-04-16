@@ -1,6 +1,6 @@
 import { DeleteResult, Repository } from 'typeorm';
 
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
 import { DepartmentEntity } from '../department/department.entity';
@@ -8,6 +8,8 @@ import { MinistryEntity } from './ministry.entity';
 
 @Injectable()
 export class MinistryService {
+  private readonly logger = new Logger(MinistryService.name);
+  
   constructor(
     @InjectRepository(MinistryEntity)
     private readonly ministryRepository: Repository<MinistryEntity>,
@@ -29,6 +31,7 @@ export class MinistryService {
     ministry.description = ministryData.description;
     const departments = await this.departmentRepository.findByIds(ministryData.departments);
     ministry.departments = departments || [];
+    this.logger.log('ministry to be saved' +  ministry);
     return await this.ministryRepository.save(ministry);
   }
 

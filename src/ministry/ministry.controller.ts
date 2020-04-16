@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put, Query } from '@nestjs/common';
+import { ApiBody, ApiOperation, ApiResponse } from '@nestjs/swagger';
 
 import { MinistryEntity } from './ministry.entity';
 import { MinistryService } from './ministry.service';
@@ -19,6 +20,12 @@ export class MinistryController {
   }
 
   @Post()
+  @ApiResponse({
+    status: 201,
+    description: 'The record has been successfully created.',
+    type: MinistryEntity
+  })
+  @ApiBody({ type: MinistryEntity })
   async create(@Body('ministry') ministry: MinistryEntity) {
     console.log('ministry',ministry);
     return this.ministryService.save(ministry);
