@@ -1,0 +1,10 @@
+export enum Place {
+  TODDLER = "TODDLER",
+  DREAM = "DREAM",
+  BETHEL = "BETHEL",
+  SHALOM = "SHALOM",
+  DURANNO = "DURANNO",
+  VISION = "VISION",
+  HOSANNA = "HOSANNA",
+  GRACE = "GRACE"
+}

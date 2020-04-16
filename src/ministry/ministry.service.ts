@@ -1,32 +1,38 @@
-import { DeleteResult, getRepository, Repository } from 'typeorm';
+import { DeleteResult, Repository } from 'typeorm';
 
-import { Injectable, Query } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { CreateMinistryDto } from './dto/create-ministry.dto';
+import { DepartmentEntity } from '../department/department.entity';
 import { MinistryEntity } from './ministry.entity';
-import { Ministry, MinistryC } from './ministry.interface';
 
 @Injectable()
 export class MinistryService {
   constructor(
     @InjectRepository(MinistryEntity)
     private readonly ministryRepository: Repository<MinistryEntity>,
+    @InjectRepository(DepartmentEntity)
+    private readonly departmentRepository: Repository<DepartmentEntity>,
   ){}
 
-  async findAll(query): Promise<[Ministry[], number]> {
+  async findAll(query): Promise<[MinistryEntity[], number]> {
     return await this.ministryRepository.findAndCount();
   }
 
-  async findById(id: string): Promise<Ministry | undefined> {
+  async findById(id: string): Promise<MinistryEntity | undefined> {
     return await this.ministryRepository.findOne(id);
   }
 
-  async save(ministry: CreateMinistryDto): Promise<Ministry | undefined> {
+  async save(ministryData: MinistryEntity): Promise<MinistryEntity | undefined> {
+    const ministry = new MinistryEntity();
+    ministry.name = ministryData.name;
+    ministry.description = ministryData.description;
+    const departments = await this.departmentRepository.findByIds(ministryData.departments);
+    ministry.departments = departments || [];
     return await this.ministryRepository.save(ministry);
   }
 
-  async update(ministry: Ministry): Promise<Ministry | undefined> {
+  async update(ministry: MinistryEntity): Promise<MinistryEntity | undefined> {
     return await this.save(ministry);
   }
 
